@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LoginController">
+   <children>
+      <Label layoutX="270.0" layoutY="64.0" prefHeight="1.0" prefWidth="66.0" style="-fx-font-size: 24px;" text="Login" />
+      <GridPane hgap="10" layoutX="82.0" layoutY="136.0" prefHeight="128.0" prefWidth="436.0" vgap="10">
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+         <children>
+            <Label prefHeight="17.0" prefWidth="80.0" text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="usernameField" prefHeight="59.0" prefWidth="282.0" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextField>
+            <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="passwordField" prefHeight="60.0" prefWidth="256.0" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </PasswordField>
+         </children>
+      </GridPane>
+      <Button fx:id="loginButton" layoutX="263.0" layoutY="279.0" mnemonicParsing="false" onAction="#checkLogin" prefHeight="49.0" prefWidth="80.0" text="Login">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Label layoutX="128.0" layoutY="356.0" prefHeight="21.0" prefWidth="190.0" text="You don't have an account?">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="signupButton" blendMode="SRC_ATOP" layoutX="318.0" layoutY="352.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Signup" textFill="#415ec6" underline="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>
