@@ -15,7 +15,6 @@ public class Connect {
             connection = DriverManager.getConnection(url, username, password);
             System.out.println("Connect successfully!");    
         } catch (SQLException e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
         return connection;

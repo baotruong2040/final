@@ -31,7 +31,6 @@ public class UserDAO {
                 
             }
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
         if (user != null) {
@@ -42,4 +41,6 @@ public class UserDAO {
         }
 
     }
+
+    
 }
