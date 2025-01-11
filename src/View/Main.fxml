@@ -34,8 +34,8 @@
       </Label>
       <ButtonBar layoutX="312.0" layoutY="338.0" prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button fx:id="addButton" mnemonicParsing="false" text="Add" />
-            <Button fx:id="editButton" mnemonicParsing="false" text="Edit" />
+          <Button fx:id="addButton" mnemonicParsing="false" onAction="#addTelephone" text="Add" />
+            <Button fx:id="editButton" mnemonicParsing="false" onAction="#editTelephone" text="Edit" />
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteTelephone" text="Delete" />
         </buttons>
       </ButtonBar>

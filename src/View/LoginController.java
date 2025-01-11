@@ -28,7 +28,7 @@ public class LoginController {
         user = userDAO.checkLogin(email, password);
         if (user != null) {
             try {
-                Utilites.switchToScene1(event, "Main.fxml", user);
+                Utilites.switchToScene1(event, "Main.fxml", user, "Danh bạ điện thoại");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -46,7 +46,7 @@ public class LoginController {
     }
     public void switchToSignup(ActionEvent event) {
         try {
-            Utilites.switchToScene1(event, "Signup.fxml", null);
+            Utilites.switchToScene1(event, "Signup.fxml", null, "Signup");
         } catch (IOException e) {
             e.printStackTrace();
         }

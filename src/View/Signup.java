@@ -47,7 +47,7 @@ public class Signup {
                 insertAccount.setString(2, password);
                 insertAccount.setInt(3, idUser);
                 insertAccount.executeUpdate();
-                Utilites.switchToScene1(event, "Login.fxml",null);
+                Utilites.switchToScene1(event, "Login.fxml",null, "Login");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +56,7 @@ public class Signup {
 
     public void cancel(ActionEvent event) {
         try {
-            Utilites.switchToScene1(event, "Login.fxml",null);
+            Utilites.switchToScene1(event, "Login.fxml",null, "Login");
         } catch (Exception e) {
             e.printStackTrace();
         }

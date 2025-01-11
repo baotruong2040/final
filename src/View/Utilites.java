@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 public class Utilites {
     
-    public static void switchToScene1(ActionEvent event, String fxml, Users user) throws IOException {
+    public static void switchToScene1(ActionEvent event, String fxml, Users user, String title) throws IOException {
         FXMLLoader loader = new FXMLLoader(Utilites.class.getResource("/View/" + fxml));
         Parent root = loader.load();
         
@@ -27,6 +27,7 @@ public class Utilites {
         
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
+        stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
     }

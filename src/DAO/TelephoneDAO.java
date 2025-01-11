@@ -57,4 +57,18 @@ public class TelephoneDAO {
             e.printStackTrace();
         }
     }
+
+    public void editTelephone(int id, String number, String name) {
+        Connection connection = Connect.getConnection();
+        try {
+            String query = "UPDATE telephone SET telephone_number = ?, owner_name = ? WHERE telephone_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, number);
+            statement.setString(2, name);
+            statement.setInt(3, id);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

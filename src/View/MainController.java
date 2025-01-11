@@ -1,21 +1,26 @@
 package View;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import DAO.TelephoneDAO;
 import Model.Telephone;
 import Model.Users;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class MainController implements Initializable {
     @FXML
@@ -82,9 +87,58 @@ public class MainController implements Initializable {
         }
     }
     //add
-    public void addTelephone() {
-        TelephoneDAO telephoneDAO = new TelephoneDAO();
-        telephoneDAO.addTelephone(user.getId(), "New Number", "New Name");
-        loadTelephones(user.getId());
+    public void addTelephone(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AddTelephoneDialog.fxml"));
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Add Telephone");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(addButton.getScene().getWindow());
+            Scene scene = new Scene(loader.load());
+            dialogStage.setScene(scene);
+
+            AddTelephoneDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setUserId(user.getId());
+
+            dialogStage.showAndWait();
+
+            if (controller.isOkClicked()) {
+                loadTelephones(user.getId());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editTelephone(ActionEvent event) {
+        Telephone telephone = tableView.getSelectionModel().getSelectedItem();
+        if (telephone != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/EditTelephone.fxml"));
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Edit Telephone");
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.initOwner(editButton.getScene().getWindow());
+                Scene scene = new Scene(loader.load());
+                dialogStage.setScene(scene);
+
+                EditTelephoneDialogController controller = loader.getController();
+                controller.setDialogStage(dialogStage);
+                controller.setTelephone(telephone);
+
+                dialogStage.showAndWait();
+
+                if (controller.isOkClicked()) {
+                    loadTelephones(user.getId());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Select a telephone to edit!");
+            alert.show();
+        }
     }
 }
