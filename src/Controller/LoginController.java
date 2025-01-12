@@ -8,10 +8,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class LoginController {
-
+    @FXML
+    Label loginLabel;
+    @FXML
+    Label emailLabel;
+    @FXML
+    Label passwordLabel;
     @FXML
     TextField usernameField;
     @FXML
@@ -24,22 +30,32 @@ public class LoginController {
     public void checkLogin(ActionEvent event) {
         String email = usernameField.getText();
         String password = passwordField.getText();
-        UserDAO userDAO = new UserDAO();
-        user = userDAO.checkLogin(email, password);
-        if (user != null) {
-            try {
-                Utilites.switchToScene1(event, "Main.fxml", user, "Danh bạ điện thoại");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
+        if(email.isEmpty() || password.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login failed!");
-            alert.setContentText("email or password is incorrect!");
-            alert.setHeaderText("password or email is incorrect!");
+            alert.setContentText("pls fill in all fields!");
+            alert.setHeaderText("pls fill in all fields!");
             alert.show();
-            System.out.println("Login failed");
+            return;
+        }else{
+            UserDAO userDAO = new UserDAO();
+            user = userDAO.checkLogin(email, password);
+            if (user != null) {
+                try {
+                    Utilites.switchToScene1(event, "Main.fxml", user, "Danh bạ điện thoại");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Login failed!");
+                alert.setContentText("email or password is incorrect!");
+                alert.setHeaderText("password or email is incorrect!");
+                alert.show();
+                System.out.println("Login failed");
+            }
         }
+            
     }
     public Users getUser() {
         return user;
@@ -50,5 +66,10 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    public void onEnter(ActionEvent ae){
+   
+        checkLogin(ae);
     }
 }

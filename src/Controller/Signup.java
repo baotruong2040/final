@@ -27,30 +27,38 @@ public class Signup {
         String password = passwordField.getText();
         String name = nameField.getText();
         Connection connection = DB.Connect.getConnection();
-        try {
-            PreparedStatement checkIfExist = connection.prepareStatement("SELECT * FROM users WHERE email = ?");
-            checkIfExist.setString(1, email);
-            ResultSet rs = checkIfExist.executeQuery();
-            if (rs.isBeforeFirst()) {
-                System.out.println("Email already exists!");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("email already exists!");
-                alert.show();
-            }else {
-                PreparedStatement insertUser = connection.prepareStatement("INSERT INTO users(name, email) VALUES(?, ?)");
-                insertUser.setString(1, name);
-                insertUser.setString(2, email);
-                insertUser.executeUpdate();
-                int idUser = Utilites.getIDUser(email);
-                PreparedStatement insertAccount = connection.prepareStatement("INSERT INTO accounts(email, password, user_id) VALUES(?, ?, ?)");
-                insertAccount.setString(1, email);
-                insertAccount.setString(2, password);
-                insertAccount.setInt(3, idUser);
-                insertAccount.executeUpdate();
-                Utilites.switchToScene1(event, "Login.fxml",null, "Login");
+        if (email.isEmpty() || password.isEmpty() || name.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Signup failed!");
+            alert.setContentText("pls fill in all fields!");
+            alert.show();
+            return;
+        }else{
+            try {
+                PreparedStatement checkIfExist = connection.prepareStatement("SELECT * FROM users WHERE email = ?");
+                checkIfExist.setString(1, email);
+                ResultSet rs = checkIfExist.executeQuery();
+                if (rs.isBeforeFirst()) {
+                    System.out.println("Email already exists!");
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("email already exists!");
+                    alert.show();
+                }else {
+                    PreparedStatement insertUser = connection.prepareStatement("INSERT INTO users(name, email) VALUES(?, ?)");
+                    insertUser.setString(1, name);
+                    insertUser.setString(2, email);
+                    insertUser.executeUpdate();
+                    int idUser = Utilites.getIDUser(email);
+                    PreparedStatement insertAccount = connection.prepareStatement("INSERT INTO accounts(email, password, user_id) VALUES(?, ?, ?)");
+                    insertAccount.setString(1, email);
+                    insertAccount.setString(2, password);
+                    insertAccount.setInt(3, idUser);
+                    insertAccount.executeUpdate();
+                    Utilites.switchToScene1(event, "Login.fxml",null, "Login");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -60,5 +68,9 @@ public class Signup {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    public void onEnter(ActionEvent ae){
+        signup(ae);
     }
 }

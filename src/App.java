@@ -12,6 +12,7 @@ public class App extends Application {
             Scene scene = new Scene(root);
             primaryStage.setTitle("Login");
             primaryStage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/View/Login.css").toExternalForm());
             primaryStage.getIcons().add(new javafx.scene.image.Image("logo.jpg"));
             primaryStage.show();
         } catch (Exception e) {
